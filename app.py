@@ -2,6 +2,11 @@ import pyrebase
 from werkzeug.utils import secure_filename
 from flask import render_template, request, redirect, session
 import os
+from datetime import datetime
+from google.cloud import firestore
+import firebase_admin
+from firebase_admin import firestore
+from firebase_admin import credentials
 import glob
 from flask import *
 from flask import jsonify
@@ -48,22 +53,26 @@ print('classes loaded')
 
 # # API that returns image with detections on it
 config = {
-    "apiKey": "AIzaSyAZ1NfqphkXILRHSOQklQLJvB_hyFOthIg",
-    "authDomain": "flaskapp-990a1.firebaseapp.com",
-    "databaseURL": "https://flaskapp-990a1.firebaseio.com",
-    "projectId": "flaskapp-990a1",
-    "storageBucket": "flaskapp-990a1.appspot.com",
-    "messagingSenderId": "829954679478",
-    "appId": "1:829954679478:web:9b4bc407419ff359977c17",
-    "measurementId": "G-LMKTB9S62K"
+  "apiKey": "AIzaSyAZ1NfqphkXILRHSOQklQLJvB_hyFOthIg",
+  "authDomain": "flaskapp-990a1.firebaseapp.com",
+  "databaseURL": "https://flaskapp-990a1.firebaseio.com",
+  "projectId": "flaskapp-990a1",
+  "storageBucket": "flaskapp-990a1.appspot.com",
+  "messagingSenderId": "829954679478",
+  "appId": "1:829954679478:web:9b4bc407419ff359977c17",
+  "measurementId": "G-LMKTB9S62K"
 }
-
+cred = credentials.Certificate('flaskapp-990a1-firebase-adminsdk-qede9-6d433e29ff.json')
+firebase_admin.initialize_app(cred)
 firebase = pyrebase.initialize_app(config)
 
 storage = firebase.storage()
 
+db = firestore.client()
+
 auth = firebase.auth()
 
+# cam = cv2.VideoCapture(0)
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
@@ -77,7 +86,7 @@ def index():
                 auth.sign_in_with_email_and_password(email, password)
                 #user_id = auth.get_account_info(user['idToken'])
                 #session['usr'] = user_id
-                return render_template('home.html')
+                return render_template('Dashboard.html')
             except:
                 unsuccessful = 'Please check your credentials'
                 return render_template('index.html', umessage=unsuccessful)
@@ -92,9 +101,33 @@ def create_account():
             return render_template('index.html')
     return render_template('create_account.html')
 
+# def stream():
+#     while 1 :
+#         __,frame = cam.read()
+#         imgencode = cv2.imencode('.jpg',frame)[1]
+#         strinData = imgencode.tostring()
+#         yield (b'--frame\r\n'b'Content-Type: text/plain\r\n\r\n'+strinData+b'\r\n')
+
+# @app.route('/video')
+# def video():
+#     return Response(stream(),mimetype='multipart/x-mixed-replace; boundary=frame')
+
+# @app.route('/webcam')
+# def main():
+#     return render_template('cam.html')
+
+
 @app.route('/Contactus')
 def Contactus():
     return render_template('Contactus.html')
+
+@app.route('/Dash')
+def Dash():
+    return render_template('Dashboard.html')
+
+@app.route('/Homepage')
+def Homepage():
+    return render_template('home.html')
 
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
@@ -113,15 +146,24 @@ def getDisplayData():
 
 @app.route('/home', methods=['GET', 'POST'])
 def basic():
-            j=0
+
+    # Remove already existing files in the output_frames directory :)
+            counter1=0
             files_del = glob.glob('data/output_frames/*')
-            for j in files_del:
-                os.remove(j)
+            for counter1 in files_del:
+                os.remove(counter1)
+    # Remove already existing files in the Clipped directory :)
+            counter2=0
+            files_clipped = glob.glob('data/Clipped/*')
+            for counter2 in files_clipped:
+                os.remove(counter2)
+    # Request Video File to act like live stream
             f = request.files['file']
             print('FILENAME: ', f.filename)
             print('SECURE FILE NAME: ', f.save(secure_filename(f.filename)))
             times = []
             i=0
+            h=0
             print(f.filename)
             try:
                 vid = cv2.VideoCapture(f.filename)
@@ -142,18 +184,42 @@ def basic():
                         break
                 img_in = cv2.cvtColor(img, cv2.COLOR_BGR2RGB) 
                 img_in = tf.expand_dims(img_in, 0)
-                img_in = transform_images(img_in, 416)
+                img_in = transform_images(img_in,416)
 
                 t1 = time.time()
                 boxes, scores, classes, nums = yolo.predict(img_in)
                 fps  = ( fps + (1./(time.time()-t1)) ) / 2
 
                 img = draw_outputs(img, (boxes, scores, classes, nums), class_names)
+                # Checking threshold i first row of 2D "scores array" because score array has only one row
+                if(scores[0][1].any() >0.50):
+                    cv2.imwrite('data/Clipped/clipp'+str(i)+'.jpg',img)
+                    storage.child('ClippedCrash/' +str(i)+ '/crash.jpg').put('data/Clipped/clipp'+str(i)+'.jpg')
+                    link_image = storage.child('ClippedCrash/' +str(i)+ '/crash.jpg').get_url(None)
+                    doc_ref = db.collection(u'Crash')
+                    doc_ref.add({
+                        u'Name': u'Vehicle Crash',
+                        u'Type': u'Anomaly',
+                        u'Timestamp': str(datetime.now()),
+                        u'Image_Url': link_image
+                    })
+                elif(scores[0][0].any() >0.50):
+                    cv2.imwrite('data/Clipped/clipp'+str(i)+'.jpg',img)
+                    # storage.child('LaneClipped/' +str(i)+ '/Lane.jpg').put('data/Clipped/clipp'+str(i)+'.jpg')
+                    # link_image = storage.child('ClippedLane/' +str(i)+ '/Lane.jpg').get_url(None)
+                    # doc_ref = db.collection(u'LaneVoilation')
+                    # doc_ref.add({
+                    #     u'Name': u'Lane Voilation',
+                    #     u'Type': u'Anomaly',
+                    #     u'Timestamp': datetime.now(),
+                    #     u'Image Url': link_image
+                    # })
+                
                 print(boxes, scores, classes, nums, class_names)
                 global displayData
                 displayData = {
 
-                    "boxes":str(boxes),
+                    "scores":str(scores),
                     "classes":str(classes),
                     "classes_names":str(class_names)
                 }
@@ -182,10 +248,19 @@ def basic():
             
             cv2.destroyAllWindows()
 
+            users_ref = db.collection(u'Crash')
+            Crashdata = users_ref.stream()
+            sasta = []
+            print(Crashdata)
+            for doc in Crashdata:
+                print(f'{doc.id} => {doc.to_dict()}')                   
+                my_dict = doc.to_dict() 
+                sasta.append(my_dict)
+                # print(my_dict)
+            print(sasta)
             storage.child("videos/new.mp4").put("data\output-vid\short.mp4")
             links = storage.child('videos/new.mp4').get_url(None)
-            return render_template('upload.html', l=links)
-            #return redirect(url_for('uploodl'
+            return render_template('upload.html', l=(links,sasta))
 # #very slowavi
 # @app.route('/load_data', methods=['GET'])
 # def load_data():
@@ -199,6 +274,45 @@ def uploads():
             links = storage.child('videos/new.mp4').get_url(None)
             return render_template('upload.html', l=links)
         return render_template('upload.html')
+
+# @app.route('/webcam', methods=['GET', 'POST'])
+# def webcam():
+#     start_time = time.time()
+#     # displays the frame rate every 2 second
+#     display_time = 2
+#     # Set primarry FPS to 0
+#     fps = 0
+
+#     # we create the video capture object cap
+#     cap = cv2.VideoCapture(0)
+#     if not cap.isOpened():
+#         raise IOError("We cannot open webcam")
+
+#     while True:
+#         ret, frame = cap.read()
+#         # resize our captured frame if we need
+#         frame = cv2.resize(frame, None, fx=1.0, fy=1.0, interpolation=cv2.INTER_AREA)
+
+#         # # detect object on our frame
+#         # r_image, ObjectsList = yolo.detect_img(frame)
+
+#         # show us frame with detection
+#         cv2.imshow("Web cam input", r_image)
+#         if cv2.waitKey(25) & 0xFF == ord("q"):
+#             cv2.destroyAllWindows()
+#             break
+
+#         # calculate FPS
+#         fps += 1
+#         TIME = time.time() - start_time
+#         if TIME > display_time:
+#             print("FPS:", fps / TIME)
+#             fps = 0 
+#             start_time = time.time()
+
+
+#     cap.release()
+#     cv2.destroyAllWindows()
 
 @app.route('/detection_vid', methods= ['GET'])
 def get_image():

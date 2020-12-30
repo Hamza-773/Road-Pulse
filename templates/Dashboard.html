@@ -1,0 +1,179 @@
+{% block content %}
+<!-- <form action="/home" method="post" enctype="multipart/form-data" class="form-control"> -->
+  <title>Dashboard</title>
+
+  <!-- Bootstrap core CSS -->
+  
+  <!-- <link href="static/style/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="{{url_for('static', filename='style/bootstrap/css/bootstrap.min.css')}}">
+  <link href="https://mdbootstrap.com/docs/jquery/components/buttons/" target="_blank">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="{{url_for('static', filename='style/css/dashboard.css')}}">
+  <!-- <link href="static/style/css/dashboard.css" rel="stylesheet"> -->
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="border border-dark" id="sidebar-wrapper" style="background-color: rgb(61, 59, 57);">
+      <div class="sidebar-title">
+        <center><img src="static/style/css/dashicon.ico" style="padding-top: 2em;"></center>
+      </div>
+      <div class="list-group list-group-flush">
+        <a href="/Dash" class="lst-itm-active list-group-item list-group-item-action bg-white lst-grp-itm">
+          <img src="https://www.flaticon.com/svg/static/icons/svg/1828/1828673.svg" class="small-icon">
+           Dashboard</a>
+        <a href="/home" class="list-group-item list-group-item-action bg-white lst-grp-itm">
+          <img src="https://www.flaticon.com/svg/static/icons/svg/997/997073.svg" class="small-icon">
+          Homepage</a>
+        <a href="/Contactus" class="list-group-item list-group-item-action bg-white lst-grp-itm">
+          <img src="https://www.flaticon.com/svg/static/icons/svg/684/684908.svg" class="small-icon">
+          Contact us</a>
+        <a href="/index" class="list-group-item list-group-item-action bg-white lst-grp-itm">
+          <img src="https://www.flaticon.com/svg/static/icons/svg/74/74472.svg" class="small-icon">
+          Logout</a>
+
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+     <!-------Nav BAr-->
+      
+
+
+
+     <nav class="navbar bg-blue justify-content-between" id="navbar-style">
+      <h1 class="form-inline" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color: rgb(80, 79, 78);">
+        <b>Welcome To Road Pulse</b>
+      </h1>
+      <div>
+        <img src="https://www.flaticon.com/svg/static/icons/svg/786/786237.svg" class="small-icon">
+        <img src="https://www.flaticon.com/svg/static/icons/svg/2097/2097743.svg" class="small-icon">
+        <img src="https://www.flaticon.com/svg/static/icons/svg/3135/3135715.svg" class="rounded md-icon" alt="Cinque Terre">
+        <a class="navbar-brand color-white color-light-blue txt-sm">Hamza</a>  
+      </div>
+      
+    </nav>
+
+
+    <!---------title bar-->
+    <div class="row bg-blue mrgn-lft-0">
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm6"><h4 class="color-white" style="padding-top: 0.3em;">Default</h4></div>
+          <div class="col-sm6">
+            <div class="bg-white" id="title-bar-white-box">
+              <img src="https://www.flaticon.com/svg/static/icons/svg/25/25694.svg" class="small-icon">
+              <a class="color-blue">/ Dashboard / Default</a>
+            </div>
+          </div>
+        </div>
+        
+        
+      </div>
+      <div class="col-sm-6 " style="padding-top: 0.5em!important;" >
+        <button type="button" class="color-blue btn btn-light right sm-padd">new</button>
+        <button type="button" class="color-blue btn btn-light right sm-padd">filters</button>
+      </div>
+    </div>
+
+
+    <!----4 cards-->
+    <div class="row bg-blue mrgn-lft-0" style="padding: 1em ;">
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-9 ">
+                <h5 class="card-heading">VIDEO PROCESSING</h5>
+                <br>
+                <a class="btn btn-primary" href="/Homepage" role="button">
+                  <span class="h5 mb-0">Choose Video File</span>
+                </a>
+              </div>
+              <div class="col-sm-3">
+                <br><br>
+                <img src="https://www.flaticon.com/svg/static/icons/svg/3179/3179193.svg" class="lg-icon right">
+              </div>
+            </div>
+            <div class="row" style="padding-top: 1em;">
+              <div class="col-sm-5">
+                <i class="fa fa-arrow-up" style="color: #2dce89!important;"></i><span class="small-green-txt"> 3.48%</span>
+              </div>
+                <div class="col-sm-7"><span class="small-txt-light-weight" style="padding-left: 6em;">Click</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-9 ">
+                <h5 class="card-heading">Contact Us</h5>
+                <br>
+                <a class="btn btn-primary" href="/Contactus" role="button">
+                  <span class="h5 mb-0">Know About Our Team</span>
+                </a>
+              </div>
+              <div class="col-sm-3">
+                <br><br>
+                <img src="https://www.flaticon.com/svg/static/icons/svg/3179/3179193.svg" class="lg-icon right">
+              </div>
+            </div>
+            <div class="row" style="padding-top: 1em;">
+              <div class="col-sm-5">
+                <i class="fa fa-arrow-up" style="color: #2dce89!important;"></i><span class="small-green-txt"> 3.48%</span>
+              </div>
+                <div class="col-sm-7"><span class="small-txt-light-weight" style="padding-left: 6em;">Click</span></div>
+            </div>
+          </div>
+        </div>
+      </div><div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-9 ">
+                <h5 class="card-heading">Logout</h5>
+                <br>
+                <a class="btn btn-primary" href="/index" role="button">
+                  <span class="h5 mb-0">Turn Back To Login Page</span>
+                </a>
+              </div>
+              <div class="col-sm-3">
+                <br><br>
+                <img src="https://www.flaticon.com/svg/static/icons/svg/3179/3179193.svg" class="lg-icon right">
+              </div>
+            </div>
+            <div class="row" style="padding-top: 1em;">
+              <div class="col-sm-5">
+                <i class="fa fa-arrow-up" style="color: #2dce89!important;"></i><span class="small-green-txt"> 3.48%</span>
+              </div>
+                <div class="col-sm-7"><span class="small-txt-light-weight" style="padding-left: 6em;">Click</span></div>
+            </div>
+          </div>
+        </div>
+
+
+    <div class="row bg-blue mrgn-lft-0">
+
+      <!----add your graphs here-->
+    </div>
+  <!-- Bootstrap core JavaScript -->
+  <script src="style/jquery/jquery.min.js"></script>
+  <script src="style/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+{% endblock %}
+   

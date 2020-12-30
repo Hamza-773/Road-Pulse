@@ -1,0 +1,142 @@
+ #wrapper {
+    overflow-x: hidden;
+ }
+
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+}
+
+.sidebar-title{
+  padding-bottom:3em ;
+}
+
+#sidebar-wrapper .list-group {
+  width: 15rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
+
+
+.bg-white{
+  background-color:white;
+}
+
+.lst-grp-itm{
+  border: none;
+  padding-left:3em ;
+}
+.lst-grp-itm:hover{
+  background-color: white!important;
+}
+
+.lst-itm-active{
+  background-color: #f8f9fa!important;
+}
+.lst-itm-active:hover{
+  background-color: #f8f9fa!important;
+}
+
+.small-icon{
+  width: 18px;
+  height: 18px;
+  margin-right:1em ;
+}
+.ex-small-icon{
+  width:12px;
+  height: 12px;
+  margin-right:1em ;
+}
+.md-icon{
+  width: 30px;
+  height: 30px;
+  margin-right:0.5em ;
+}
+.lg-icon{
+  width: 45px;
+  height:45px;
+  margin-right:0.5em ;
+}
+.bg-blue{
+  background-color: #5e72e4!important;
+}
+#navbar-style {
+  border-color: rgba(255,255,255,.08)!important;
+}
+.color-white{
+  color: white;
+}
+.color-blue{
+  color: #5e72e4;
+}
+.color-light-blue:hover{
+  color: #d5dbff!important;
+}
+.txt-sm{
+  font-size: 1rem!important;
+  font-weight:500;
+}
+.navbar {
+  min-height: 80px;
+}
+.mrgn-lft-0{
+  margin-left: 0!important;
+  padding: 2em;
+}
+
+#title-bar-white-box{
+  margin-left: 3em;
+  border-radius: 5px;
+  padding:0.7em ;
+  padding-right: 1em;
+  padding-left:1em ;
+}
+.right{
+  float: right!important;
+  margin-left: 0.7em;
+}
+.sm-padd{
+  padding: 0px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.card-heading{
+  font-family: Open Sans,sans-serif;
+  font-weight: 600;
+  line-height:0;
+  color: #8898aa!important;
+  font-size: .75rem;
+}
+.small-green-txt{
+  font-size: 14px;
+  color: #2dce89!important;
+  padding-left: 3px;
+}
+.small-txt-light-weight{
+  font-size: 14px;
+}

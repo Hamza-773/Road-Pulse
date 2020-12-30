@@ -8,9 +8,38 @@
 
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    </head>
-    <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+      <link rel="stylesheet" href="{{url_for('static', filename='style/bootstrap/css/bootstrap.min.css')}}">
+      <link href="https://mdbootstrap.com/docs/jquery/components/buttons/" target="_blank">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+      <!-- Custom styles for this template -->
+      <link rel="stylesheet" href="{{url_for('static', filename='style/css/dashboard.css')}}">
+      <!-- <link href="static/style/css/dashboard.css" rel="stylesheet"> -->
+    
+      <div class="d-flex" id="wrapper">
+    
+        <!-- Sidebar -->
+        <div class="border border-dark" id="sidebar-wrapper" style="background-color: rgb(61, 59, 57);">
+          <div class="sidebar-title">
+            <center><img src="static/style/css/dashicon.ico" style="padding-top: 2em;"></center>
+          </div>
+          <div class="list-group list-group-flush">
+            <a href="/Dash" class="lst-itm-active list-group-item list-group-item-action bg-white lst-grp-itm">
+              <img src="https://www.flaticon.com/svg/static/icons/svg/1828/1828673.svg" class="small-icon">
+               Dashboard</a>
+            <a href="/home" class="list-group-item list-group-item-action bg-white lst-grp-itm">
+              <img src="https://www.flaticon.com/svg/static/icons/svg/997/997073.svg" class="small-icon">
+              Homepage</a>
+            <a href="/Contactus" class="list-group-item list-group-item-action bg-white lst-grp-itm">
+              <img src="https://www.flaticon.com/svg/static/icons/svg/684/684908.svg" class="small-icon">
+              Contact us</a>
+            <a href="/index" class="list-group-item list-group-item-action bg-white lst-grp-itm">
+              <img src="https://www.flaticon.com/svg/static/icons/svg/74/74472.svg" class="small-icon">
+              Logout</a>
+    
+          </div>
+        </div>
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
   <div class="container">
     <a class="navbar-brand" href="#">
           <h1 style="font-family: monospace; font-style: oblique; font-variant: small-caps;">   Road Pulse   </h1>
@@ -26,19 +55,25 @@
               </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/index">Login Page</a>
+          <a class="nav-link" href="/index">Logout</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/Contactus">Contact
             <span class="sr-only">(current)</span>
           </a>
-
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/webcam">Webcam
+            <span class="sr-only">(current)</span>
+          </a>
         </li>
       </ul>
     </div>
   </div>
-</nav>
-        {% block content %}{% endblock %}
+</nav> -->
+        {% block content %}
+
+        {% endblock %}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
