@@ -15,4 +15,6 @@ The network downsamples the image by a factor called the stride of the network. 
 In training process, we trained our model on custom classes. Dataset used for training process is AI City Challenge 2019. At first faced many issues like dependencies, lack of knowledge etc. but gradually we successfully trained our model using Google Colab GPU environment. 
  
 ### Custom training Graph
-1[](https://github.com/Hamza-773/Road-Pulse/blob/main/data/images/download.png)
+![](https://github.com/Hamza-773/Road-Pulse/blob/main/data/images/download.png)
+
+Above figure shows a graph generating after training the YOLO v3 on custom classes. The graph shows ‘Loss Per Iteration’. We achieved an average loss value of 0.0399 which is the best value for a training process. The max_batch size was set to 5000 according to the class problems requirement. No of iterations performed were 5k almost and custom weight files generated were saved in our mounted G-drive.
