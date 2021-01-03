@@ -13,3 +13,6 @@ The network downsamples the image by a factor called the stride of the network. 
 
 # Custom Training Yolo v3:
 In training process, we trained our model on custom classes. Dataset used for training process is AI City Challenge 2019. At first faced many issues like dependencies, lack of knowledge etc. but gradually we successfully trained our model using Google Colab GPU environment. 
+ 
+### Custom training Graph
+1[](https://github.com/Hamza-773/Road-Pulse/blob/main/data/images/download.png)
