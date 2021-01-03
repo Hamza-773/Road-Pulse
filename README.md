@@ -6,3 +6,10 @@ Road Pulse is a modern solution to improve traffic management and restore laws a
 In comparison to recognition algorithms, a detection
 ## Fully Convolutional Network
 YOLO makes use of only convolutional layers, making it a fully convolutional network (FCN). In the YOLO v3 paper, the authors present a new, deeper architecture of a feature extractor called Darknet-53. As its name suggests, it contains 53 convolutional layers, each followed by a batch normalization layer and Leaky ReLU activation. No form of pooling is used, and a convolutional layer with stride 2 is used to downsample the feature maps. This helps in preventing the loss of low-level features often attributed to pooling.
+ 
+ ![](https://miro.medium.com/max/495/1*HHn-fcpOEvQnC6WLEj82Jg.png)
+ 
+The network downsamples the image by a factor called the stride of the network. For example, if the stride of the network is 32, then an input image of size 416 x 416 will yield an output of size 13 x 13. Generally, the stride of any layer in the network is equal to the factor by which the output of the layer is smaller than the input image to the network.
+
+# Custom Training Yolo v3:
+In training process, we trained our model on custom classes. Dataset used for training process is AI City Challenge 2019. At first faced many issues like dependencies, lack of knowledge etc. but gradually we successfully trained our model using Google Colab GPU environment. 
